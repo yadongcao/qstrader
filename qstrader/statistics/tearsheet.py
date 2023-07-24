@@ -639,6 +639,54 @@ class TearsheetStatistics(AbstractStatistics):
         if filename is not None:
             fig.savefig(filename, dpi=150, bbox_inches='tight')
 
+    def plot_results_by_part(self):
+        """
+        Plot the Tearsheet
+        """
+        stats = self.get_results()
+
+        figsize = (8, 6)
+        fig, ax_equity = plt.subplots(figsize=figsize)
+        fig.suptitle(self.title, y=0.94, weight='bold')
+        self._plot_equity(stats, ax=ax_equity)
+        plt.show()
+
+        if self.rolling_sharpe:
+            fig, ax_sharpe = plt.subplots(figsize=figsize)
+            self._plot_rolling_sharpe(stats, ax=ax_sharpe)
+            plt.show()
+
+        fig, ax_drawdown = plt.subplots(figsize=figsize)
+        self._plot_drawdown(stats, ax=ax_drawdown)
+        plt.show()
+
+        fig, ax_monthly_returns = plt.subplots(figsize=figsize)
+        self._plot_monthly_returns(stats, ax=ax_monthly_returns)
+        plt.show()
+
+        fig, ax_yearly_returns = plt.subplots(figsize=figsize)
+        self._plot_yearly_returns(stats, ax=ax_yearly_returns)
+        plt.show()
+
+        fig, ax_txt_curve = plt.subplots(figsize=figsize)
+        self._plot_txt_curve(stats, ax=ax_txt_curve)
+        plt.show()
+
+        fig, ax_txt_trade = plt.subplots(figsize=figsize)
+        self._plot_txt_trade(stats, ax=ax_txt_trade)
+        plt.show()
+
+        fig, ax_txt_time = plt.subplots(figsize=figsize)
+        self._plot_txt_time(stats, ax=ax_txt_time)
+        plt.show()
+
+
+
+
+        # Plot the figure
+        # plt.show()
+
+
     def get_filename(self, filename=""):
         if filename == "":
             now = datetime.utcnow()

@@ -12,7 +12,7 @@ class ExampleCompliance(AbstractCompliance):
     CSV file in the output directory.
     """
 
-    def __init__(self, config):
+    def __init__(self, config, strategy_name):
         """
         Wipe the existing trade log for the day, leaving only
         the headers in an empty CSV.
@@ -24,7 +24,7 @@ class ExampleCompliance(AbstractCompliance):
         self.config = config
         # Remove the previous CSV file
         today = datetime.datetime.utcnow().date()
-        self.csv_filename = "tradelog_" + today.strftime("%Y-%m-%d") + ".csv"
+        self.csv_filename = strategy_name + "_tradelog_" + today.strftime("%Y-%m-%d") + ".csv"
 
         try:
             fname = os.path.expanduser(os.path.join(config.OUTPUT_DIR, self.csv_filename))

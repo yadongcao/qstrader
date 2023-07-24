@@ -84,7 +84,7 @@ class TradingSession(object):
             )
 
         if self.compliance is None:
-            self.compliance = ExampleCompliance(self.config)
+            self.compliance = ExampleCompliance(self.config, self.strategy.__class__.__name__)
 
         if self.execution_handler is None:
             self.execution_handler = IBSimulatedExecutionHandler(
@@ -164,5 +164,6 @@ class TradingSession(object):
             )
         )
         if not testing:
-            self.statistics.plot_results()
+            #self.statistics.plot_results()
+            self.statistics.plot_results_by_part()
         return results
