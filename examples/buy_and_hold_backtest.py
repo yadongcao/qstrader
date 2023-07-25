@@ -47,13 +47,13 @@ def run(config, testing, tickers, filename):
 
     # Use the Buy and Hold Strategy
     events_queue = queue.Queue()
-    strategy = BuyAndHoldStrategy(tickers[0], events_queue)
+    strategy = BuyAndHoldStrategy(tickers[1], events_queue)
 
     # Set up the backtest
     backtest = TradingSession(
         config, strategy, tickers,
         initial_equity, start_date, end_date,
-        events_queue, title=title
+        events_queue, title=title, benchmark='SPY'
     )
     results = backtest.start_trading(testing=testing)
     return results
@@ -65,6 +65,6 @@ if __name__ == "__main__":
     config = settings.from_file(
         settings.DEFAULT_CONFIG_FILENAME, testing
     )
-    tickers = ["SPY"]
+    tickers = ["SPY", "AAPL"]
     filename = None
     run(config, testing, tickers, filename)

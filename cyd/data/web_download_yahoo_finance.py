@@ -51,14 +51,16 @@ def save_tick_to_csv():
 
 def save_tick_list_to_csv():
     strategy_symbols = ['XL%s' % sector for sector in "BCEFIKPUVY"]
+
+    strategy_symbols = ["SPY", "IJS", "EFA", "EEM", "AGG", "JNK", "DJP", "RWR"]
     for symbol in strategy_symbols:
         tick_id = symbol
         start_date_str = '1998-01-01'
         end_date_str = datetime.datetime.now().strftime('%Y-%m-%d')
         tick_df = download_data(stock_id=tick_id, start_date_str=start_date_str, end_date_str=end_date_str)
 
-        tick_df.to_csv('D:/QSTRADER_DATA/data/{tick_name}.csv'.format(tick_name=tick_id), encoding='utf-8-sig')
+        tick_df.to_csv('D:/QSTRADER_DATA/data/{tick_name}.csv'.format(tick_name=tick_id), index=False, encoding='utf-8-sig')
 
 if __name__ == '__main__':
-    save_tick_to_csv()
-    #save_tick_list_to_csv()
+    #save_tick_to_csv()
+    save_tick_list_to_csv()
