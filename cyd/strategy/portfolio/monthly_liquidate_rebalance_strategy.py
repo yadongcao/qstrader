@@ -46,8 +46,8 @@ def run(config, testing, tickers, filename):
     end_date = datetime.datetime(2016, 10, 12)
 
     events_queue = queue.Queue()
-    tickers_1 = ["AAPL", "AGG"]
-    strategy = MonthlyLiquidateRebalanceStrategy(tickers_1, events_queue)
+
+    strategy = MonthlyLiquidateRebalanceStrategy(tickers[1:], events_queue)
 
     ticker_weights = {
         "AAPL": 0.6,
@@ -59,7 +59,7 @@ def run(config, testing, tickers, filename):
         config, strategy, tickers,
         initial_equity, start_date, end_date,
         events_queue, position_sizer=position_sizer,
-        title=title, benchmark='SPY',
+        title=title, benchmark=tickers[0],
     )
     results = backtest.start_trading(testing=testing)
     return results
